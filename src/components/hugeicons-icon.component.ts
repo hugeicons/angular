@@ -1,11 +1,11 @@
 import { Component, Input, ChangeDetectionStrategy, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgForOf } from '@angular/common';
 import { IconSvgObject } from '../lib/types';
 
 @Component({
   selector: 'hugeicons-icon',
   standalone: true,
-  imports: [CommonModule],
+  imports: [NgForOf],
   template: `
     <svg
       [attr.width]="size"
