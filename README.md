@@ -2,11 +2,11 @@
 
 # @hugeicons/angular
 
-> HugeIcons Pro Angular Component Library - Beautiful and customizable icons for your Angular applications
+> Hugeicons Pro Angular Component Library - Beautiful and customizable icons for your Angular applications
 
-## What is HugeIcons?
+## What is Hugeicons?
 
-HugeIcons is a comprehensive icon library designed for modern web and mobile applications. The free package includes 4,000+ carefully crafted icons in the Stroke Rounded style, while the pro version offers over 36,000 icons across 9 unique styles.
+Hugeicons is a comprehensive icon library designed for modern web and mobile applications. The free package includes 4,000+ carefully crafted icons in the Stroke Rounded style, while the pro version offers over 45,000 icons across 10 unique styles.
 
 ### Key Highlights
 - **4,000+ Free Icons**: Extensive collection of Stroke Rounded icons covering essential UI elements, actions, and concepts
@@ -19,7 +19,7 @@ HugeIcons is a comprehensive icon library designed for modern web and mobile app
 ![a40aa766-1b04-4a2a-a2e6-0ec3c492b96a](https://github.com/hugeicons/hugeicons-react/assets/130147052/f82c0e0e-60ae-4617-802f-812cdc7a58da)
 
 ## Table of Contents
-- [What is HugeIcons?](#what-is-hugeicons)
+- [What is Hugeicons?](#what-is-hugeicons)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -63,42 +63,45 @@ bun add @hugeicons/angular @hugeicons/core-free-icons
 
 ## Usage
 
-First, import the HugeiconsModule in your app.module.ts:
-
-```typescript
-import { NgModule } from '@angular/core';
-import { HugeiconsModule } from '@hugeicons/angular';
-
-@NgModule({
-  imports: [
-    HugeiconsModule
-  ],
-  // ...
-})
-export class AppModule { }
-```
-
-Then use it in your component:
+The `HugeiconsIconComponent` is a standalone component. Import it directly in your component:
 
 ```typescript
 // your.component.ts
 import { Component } from '@angular/core';
+import { HugeiconsIconComponent } from '@hugeicons/angular';
 import { SearchIcon } from '@hugeicons/core-free-icons';
 
 @Component({
   selector: 'app-your-component',
+  standalone: true,
+  imports: [HugeiconsIconComponent],
   template: `
     <hugeicons-icon
       [icon]="icon"
       [size]="24"
       color="currentColor"
       [strokeWidth]="1.5"
-    ></hugeicons-icon>
+    />
   `
 })
 export class YourComponent {
   icon = SearchIcon;
 }
+```
+
+### NgModule Usage (Legacy)
+
+If you're using NgModules, import the component in your module:
+
+```typescript
+import { NgModule } from '@angular/core';
+import { HugeiconsIconComponent } from '@hugeicons/angular';
+
+@NgModule({
+  imports: [HugeiconsIconComponent],
+  // ...
+})
+export class AppModule { }
 ```
 
 ## Inputs
@@ -261,7 +264,7 @@ The library supports all modern browsers.
 
 ## Pro Version
 
-> 🌟 **Want access to 36,000+ icons and 9 unique styles?** 
+> 🌟 **Want access to 45,000+ icons and 10 unique styles?** 
 > Check out our [Pro Version](https://hugeicons.com/pricing) and visit [docs.hugeicons.com](https://docs.hugeicons.com) for comprehensive documentation.
 
 ### Available Pro Styles
@@ -276,6 +279,7 @@ The library supports all modern browsers.
 - **Special Styles**
   - Bulk Rounded (`@hugeicons-pro/core-bulk-rounded`)
   - Duotone Rounded (`@hugeicons-pro/core-duotone-rounded`)
+  - Duotone Standard (`@hugeicons-pro/core-duotone-standard`)
   - Twotone Rounded (`@hugeicons-pro/core-twotone-rounded`)
 
 ## License
@@ -285,4 +289,4 @@ This project is licensed under the [MIT License](LICENSE.md).
 ## Related
 
 - [@hugeicons/core-free-icons](https://www.npmjs.com/package/@hugeicons/core-free-icons) - Free icon package
-- [HugeIcons Website](https://hugeicons.com) - Browse all available icons 
+- [Hugeicons Website](https://hugeicons.com) - Browse all available icons 

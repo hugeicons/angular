@@ -1,89 +1,81 @@
-import { Component, Input, ChangeDetectionStrategy, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy, computed, input } from '@angular/core';
 import { IconSvgObject } from '../lib/types';
+
+interface PathData {
+  d: string;
+  fill: string;
+  opacity?: string;
+  fillRule?: string;
+  stroke?: string;
+  strokeWidth?: number;
+}
 
 @Component({
   selector: 'hugeicons-icon',
   standalone: true,
-  imports: [CommonModule],
   template: `
     <svg
-      [attr.width]="size"
-      [attr.height]="size"
+      [attr.width]="size()"
+      [attr.height]="size()"
       viewBox="0 0 24 24"
       fill="none"
-      [attr.color]="color"
-      [class]="class"
+      [attr.color]="color()"
+      [class]="iconClass()"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        *ngFor="let path of paths; trackBy: trackByFn"
-        [attr.d]="path.d"
-        [attr.fill]="path.fill"
-        [attr.opacity]="path.opacity"
-        [attr.fill-rule]="path.fillRule"
-        [attr.stroke]="path.stroke"
-        [attr.stroke-width]="path.strokeWidth"
-      />
+      @for (path of paths(); track $index) {
+        <path
+          [attr.d]="path.d"
+          [attr.fill]="path.fill"
+          [attr.opacity]="path.opacity"
+          [attr.fill-rule]="path.fillRule"
+          [attr.stroke]="path.stroke"
+          [attr.stroke-width]="path.strokeWidth"
+        />
+      }
     </svg>
   `,
+  host: {
+    style: 'display: inline-flex; align-items: center; justify-content: center;'
+  },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+export class HugeiconsIconComponent {
+  // Signal inputs - modern Angular 17.1+ approach
+  readonly size = input<string | number>(24);
+  readonly strokeWidth = input<number | undefined>(undefined);
+  readonly absoluteStrokeWidth = input<boolean>(false);
+  readonly icon = input.required<IconSvgObject>();
+  readonly altIcon = input<IconSvgObject | undefined>(undefined);
+  readonly color = input<string>('currentColor');
+  readonly iconClass = input<string>('', { alias: 'class' });
+  readonly showAlt = input<boolean>(false);
 
-export class HugeiconsIconComponent implements OnInit, OnChanges {
-  @Input() size: string | number = 24;
-  @Input() strokeWidth?: number;
-  @Input() absoluteStrokeWidth = false;
-  @Input() icon!: IconSvgObject;
-  @Input() altIcon?: IconSvgObject;
-  @Input() color = 'currentColor';
-  @Input() class = '';
-  @Input() showAlt = false;
-
-  paths: Array<{
-    d: string;
-    fill: string;
-    opacity?: string;
-    fillRule?: string;
-    stroke?: string;
-    strokeWidth?: number;
-  }> = [];
-
-  ngOnInit() {
-    this.updatePaths();
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    this.updatePaths();
-  }
-
-  private updatePaths() {
-    const currentIcon = this.showAlt && this.altIcon ? this.altIcon : this.icon;
+  // Computed signal for reactive path updates
+  readonly paths = computed<PathData[]>(() => {
+    const currentIcon = this.showAlt() && this.altIcon() ? this.altIcon()! : this.icon();
 
     if (!currentIcon || !Array.isArray(currentIcon)) {
-      this.paths = [];
-      return;
+      return [];
     }
 
-    const calculatedStrokeWidth = this.strokeWidth !== undefined
-      ? (this.absoluteStrokeWidth ? (Number(this.strokeWidth) * 24) / Number(this.size) : this.strokeWidth)
+    const strokeWidthValue = this.strokeWidth();
+    const calculatedStrokeWidth = strokeWidthValue !== undefined
+      ? (this.absoluteStrokeWidth() 
+          ? (Number(strokeWidthValue) * 24) / Number(this.size()) 
+          : strokeWidthValue)
       : undefined;
 
-    const strokeProps = calculatedStrokeWidth !== undefined ? {
-      strokeWidth: calculatedStrokeWidth,
-      stroke: 'currentColor'
-    } : {};
+    const strokeProps = calculatedStrokeWidth !== undefined 
+      ? { strokeWidth: calculatedStrokeWidth, stroke: 'currentColor' } 
+      : {};
 
-    this.paths = currentIcon.map(([_, attrs]) => ({
+    return currentIcon.map(([_, attrs]) => ({
       d: attrs['d'],
       fill: attrs['fill'] || 'none',
       opacity: attrs['opacity'],
       fillRule: attrs['fillRule'],
       ...strokeProps
     }));
-  }
-
-  trackByFn(index: number) {
-    return index;
-  }
+  });
 }
