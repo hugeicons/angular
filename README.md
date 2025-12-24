@@ -244,5 +244,6 @@ Hugeicons icon packs are licensed separately:
 
 ## Related
 
+- [Changelog](CHANGELOG.md) - Version history and release notes
 - [@hugeicons/core-free-icons](https://www.npmjs.com/package/@hugeicons/core-free-icons) - Free icon package
 - [Hugeicons Website](https://hugeicons.com) - Browse all available icons
