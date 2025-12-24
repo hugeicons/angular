@@ -48,15 +48,14 @@
     "typescript": "~5.2.0"
   },
   "keywords": [
+    "hugeicons",
+    "angular",
     "icons",
     "angular-icons",
-    "ui-components",
-    "design-system",
+    "svg-icons",
+    "svg",
     "vector-icons",
-    "angular-component-library",
-    "web-icons",
-    "scalable-icons",
-    "customizable-icons",
-    "icon-library"
+    "icon-library",
+    "typescript"
   ]
 }
