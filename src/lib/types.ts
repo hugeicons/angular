@@ -1,4 +1,4 @@
-/** SVG path attributes */
+/** SVG path attributes - strict version with required d property */
 export interface SvgPathAttributes {
   d: string;
   fill?: string;
@@ -11,8 +11,14 @@ export interface SvgPathAttributes {
   [key: string]: unknown;
 }
 
-/** Icon SVG object type - tuple of [element name, attributes] */
-export type IconSvgObject = readonly (readonly [string, SvgPathAttributes])[];
+/** Loose path attributes type for compatibility with icon data packages */
+export type LooseSvgPathAttributes = {
+  d?: string;
+  [key: string]: string | number | undefined;
+};
+
+/** Icon SVG object type - accepts both strict and loose path attribute formats */
+export type IconSvgObject = readonly (readonly [string, SvgPathAttributes | LooseSvgPathAttributes])[];
 
 export type IconName = string;
 

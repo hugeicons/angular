@@ -1,6 +1,15 @@
 # @hugeicons/angular
 
 
+## 1.0.6
+
+### Patch Changes
+
+- Fixed TypeScript type compatibility issue with icon data packages
+- `IconSvgObject` now accepts both strict (`SvgPathAttributes`) and loose path attribute formats
+- Resolves "Property 'd' is missing" type error when using icons from `@hugeicons/core-*` packages
+
+
 ## 1.0.5
 
 ### Patch Changes
