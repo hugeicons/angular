@@ -1,6 +1,13 @@
 # @hugeicons/angular
 
 
+## 1.0.7
+
+### Patch Changes
+
+- Updated documentation icon counts to 5,100+ free / 51,000+ pro
+
+
 ## 1.0.6
 
 ### Patch Changes
