@@ -1,6 +1,14 @@
 # @hugeicons/angular
 
 
+## Unreleased
+
+### Patch Changes
+
+- Fixed icons that use non-`path` SVG primitives (`circle`, `ellipse`, `rect`, `line`, `polyline`, `polygon`) rendering as empty paths. Affects e.g. `CompassIcon`, `AlertCircleIcon`, `MapsLocation01Icon`. Closes #5.
+- Fixed near-zero-length paths (icon dots) being invisible by preserving `strokeLinecap` / `strokeLinejoin` (defaulting to `round`) when extracting attributes.
+
+
 ## 1.0.7
 
 ### Patch Changes
